@@ -1,0 +1,163 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ffe1f128-e163-41ba-a7ed-0ede7d1a091d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "08d7c8de-5e30-42b7-80c7-06771a0630b5",
+              "name": "lead_name",
+              "value": "Rodrigo Castillo",
+              "type": "string"
+            },
+            {
+              "id": "da8402dd-ea6c-4deb-ae53-3b7934e59147",
+              "name": "email",
+              "value": "r.castillo@sqm.cl",
+              "type": "string"
+            },
+            {
+              "id": "f7dec9bd-09fc-4426-900d-5a1468dc98d3",
+              "name": "title",
+              "value": "Head of Operations, Northern Operations Division",
+              "type": "string"
+            },
+            {
+              "id": "9c32a83c-5c93-4000-9add-51aa00fc79cc",
+              "name": "company",
+              "value": "Sociedad Quimica y Minera de Chile (SQM)",
+              "type": "string"
+            },
+            {
+              "id": "99efddce-0aea-4c6f-9edf-a7bae17ee6a1",
+              "name": "country",
+              "value": "Chile",
+              "type": "string"
+            },
+            {
+              "id": "4f99eda5-2f65-4dc8-bf66-def44f181a47",
+              "name": "subject",
+              "value": "Autonomous inspection for our Atacama lithium sites",
+              "type": "string"
+            },
+            {
+              "id": "6b778220-b524-4249-8793-912a919ae6aa",
+              "name": "context",
+              "value": "Looking for drone-based inspection for 3 large-scale, 24/7 lithium extraction sites in the Atacama Desert. Contracted crews are expensive and hazardous. Referred by Anglo American. Internal budget conversation scheduled for Q3.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "78b8922d-99dd-4a07-80ad-ec79651d785b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are FlytBase's AI Inbound Sales Copilot.\n\nYou have received an inbound lead.\n\nLead Details\n\nLead Name: {{ $json.lead_name }}\n\nEmail: {{ $json.email }}\n\nTitle: {{ $json.title }}\n\nCompany: {{ $json.company }}\n\nCountry: {{ $json.country }}\n\nSubject: {{ $json.subject }}\n\nContext:\n{{ $json.context }}\n\nPerform ALL of the following:\n\n---------------------------\nSTAGE 1 – LEAD QUALIFICATION\n---------------------------\nUse the BANT framework.\n\nReturn:\n- Budget\n- Authority\n- Need\n- Timeline\n- Lead Score (0-100)\n- Priority\n\n---------------------------\nSTAGE 2 – COMPANY RESEARCH\n---------------------------\nResearch the company from the provided information.\n\nReturn:\n- Company Overview\n- Industry\n- Business Operations\n- Possible Drone Use Cases\n- Challenges\n- Buying Signals\n\n---------------------------\nSTAGE 3 – FLYTBASE SOLUTION\n---------------------------\nRecommend:\n\n- FlytBase products\n- Similar customer case studies\n- Business value\n- ROI\n- Why FlytBase is a good fit\n\n---------------------------\nSTAGE 4 – PERSONALIZED EMAIL\n---------------------------\nWrite a professional follow-up email.\n\nInclude:\n- Subject\n- Greeting\n- Value proposition\n- CTA\n\n---------------------------\nSTAGE 5 – AE HANDOFF\n---------------------------\nPrepare an Account Executive handoff.\n\nInclude:\n- Lead Summary\n- Opportunity\n- Risks\n- Discovery Questions\n- Recommended Next Action\n\nReturn the response as plain text.\n\nUse clear headings and bullet points.\n\nDo NOT use Markdown formatting such as ##, **, *, or \\n.\n\nFormat the response exactly as follows:\n\nLead Qualification\n- Budget:\n- Authority:\n- Need:\n- Timeline:\n\nCompany Research\n- Industry:\n- Overview:\n- Key Challenges:\n\nFlytBase Use Cases\n- Use Case 1\n- Use Case 2\n- Use Case 3\n\nDiscovery Questions\n1.\n2.\n3.\n\nRecommended Next Action\n- ... IMPORTANT:\nDo not include \"\\n\", \"\\t\", or any escape characters in your response.\nWrite normal text with actual line breaks.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "915aeae9-360e-4ebc-90d1-6b34ce6d3bdc",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        912,
+        208
+      ],
+      "id": "d957cda6-a340-4b17-bd2c-f5a20061dbf5",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "C0tZQG2hf9KfjJQe",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "bc567ff5-11c0-4ba9-b389-709b61140f16",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bbdd3e727df33de7795c563ec0505ee3b6f3066648996173df8e39b4135df354"
+  },
+  "nodeGroups": [],
+  "id": "DbDl7lBpVOdENXvU",
+  "tags": []
+}
