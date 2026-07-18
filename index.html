@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlytBase AI Sales Copilot</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Tahoma,sans-serif;background:#eef4fb;color:#1f2937}
+.sidebar{position:fixed;left:0;top:0;width:240px;height:100%;background:#0f4c81;color:#fff;padding:24px}
+.sidebar h2{margin-top:0}
+.sidebar a{display:block;color:#dbeafe;text-decoration:none;padding:10px 0}
+.main{margin-left:260px;padding:24px}
+.hero{background:linear-gradient(135deg,#2563eb,#38bdf8);color:#fff;padding:24px;border-radius:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:20px}
+.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #cbd5e1;border-radius:8px}
+button{background:#2563eb;color:#fff;border:none;padding:12px 18px;border-radius:8px;cursor:pointer}
+button:hover{background:#1d4ed8}
+.metric{font-size:30px;font-weight:bold;color:#2563eb}
+ul{padding-left:20px}
+pre{white-space:pre-wrap;background:#f8fafc;padding:10px;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h2>FlytBase</h2>
+<a href="#">Dashboard</a>
+<a href="#">Research</a>
+<a href="#">Discovery</a>
+<a href="#">CRM Notes</a>
+<a href="#">Email Draft</a>
+<a href="#">Settings</a>
+</div>
+
+<div class="main">
+<div class="hero">
+<h1>AI Sales Copilot for Inbound BDR</h1>
+<p>Prototype Dashboard for the FlytBase Assignment</p>
+</div>
+
+<div class="cards">
+<div class="card">
+<h3>Lead Details</h3>
+<input id="company" placeholder="Company">
+<input id="contact" placeholder="Contact Name">
+<input id="role" placeholder="Job Role">
+<textarea id="challenge" placeholder="Business Challenge"></textarea>
+<button onclick="generate()">Generate Insights</button>
+</div>
+
+<div class="card">
+<h3>Lead Score</h3>
+<div class="metric" id="score">--</div>
+<p>Qualification Score</p>
+</div>
+
+<div class="card">
+<h3>Industry Pain Points</h3>
+<ul id="pain">
+<li>Click Generate Insights</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>FlytBase Recommendations</h3>
+<ul id="usecases">
+<li>Click Generate Insights</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Discovery Questions</h3>
+<ul id="questions">
+<li>Click Generate Insights</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>CRM Summary</h3>
+<pre id="crm">No summary generated.</pre>
+</div>
+
+</div>
+</div>
+
+<script>
+function generate(){
+let company=document.getElementById("company").value||"Prospect Company";
+let contact=document.getElementById("contact").value||"Prospect";
+let role=document.getElementById("role").value||"Decision Maker";
+let challenge=document.getElementById("challenge").value||"Operational efficiency";
+
+document.getElementById("score").innerText="87 / 100";
+
+document.getElementById("pain").innerHTML=
+"<li>Manual inspections</li><li>Slow reporting</li><li>High operational costs</li>";
+
+document.getElementById("usecases").innerHTML=
+"<li>Drone-in-a-Box</li><li>Automated Inspection</li><li>Remote Fleet Management</li>";
+
+document.getElementById("questions").innerHTML=
+"<li>What inspection workflow do you use today?</li><li>How many sites are managed?</li><li>What KPIs matter most?</li>";
+
+document.getElementById("crm").innerText=
+"Company: "+company+
+"\nContact: "+contact+
+"\nRole: "+role+
+"\nChallenge: "+challenge+
+"\nStatus: Qualified for Discovery"+
+"\nNext Action: Schedule Product Demo";
+}
+</script>
+</body>
+</html>
